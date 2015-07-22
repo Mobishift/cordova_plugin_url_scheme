@@ -7,8 +7,8 @@ module.exports = function(context){
         ConfigParser = context.requireCordovaModule('cordova-lib').configparser,
         config = new ConfigParser(path.join(projectRoot, 'config.xml'));
 
-    console.log('setting android url scheme...');
-    var packageName = config.android_packageName() || config.packageName();
+    console.log('removing android url scheme setting...');
+    var packageNames = config.android_packageName() || config.packageName();
     var targetFile = path.join(projectRoot, 'platforms', 'android', 'src', packageNames.replace(/\./g, path.sep), 'MainActivity.java');
 
     var content = fs.readFileSync(targetFile, {encoding: 'utf8'});
