@@ -39,6 +39,7 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
             </intent-filter>
         </config-file>
-        <config-file parent="/*" target="AndroidManifest.xml"></config-fi le><source-file src="src/android/URLScheme.java" target-dir="src/com/mobishift/plugins/URLScheme"/>
+
+        <source-file src="src/android/URLScheme.java" target-dir="src/com/mobishift/plugins/URLScheme"/>
     </platform>
 </plugin>
