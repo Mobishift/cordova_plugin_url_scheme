@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.mobishift.plugins.URLScheme" version="0.0.1" xmlns:android="http://schemas.android.com/apk/res/android" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+    <name>URLScheme</name>
+    <js-module name="URLScheme" src="www/URLScheme.js"><clobbers target="cordova.plugins.URLScheme"/></js-module>
+    <hook src="scripts/before_install.js" type="before_plugin_install"/>
+    <platform name="ios">
+        <hook src="scripts/ios_after_install.js" type="after_plugin_install"/>
+        <hook src="scripts/ios_before_uninstall.js" type="before_plugin_uninstall"/>
+        <config-file parent="/*" target="config.xml">
+            <feature name="URLScheme"><param name="ios-package" value="URLScheme"/></feature>
+        </config-file>
+        <config-file parent="CFBundleURLTypes" target="*/*-Info.plist">
+            <array>
+                <dict>
+                    <key>CFBundleURLName</key>
+                    <string>urlscheme</string>
+                    <key>CFBundleURLSchemes</key>
+                    <array>
+                        <string>{{URL_SCHEME}}</string>
+                    </array>
+                </dict>
+            </array>
+        </config-file>
+        <header-file src="src/ios/URLScheme.h" />
+        <source-file src="src/ios/URLScheme.m" />
+    </platform>
+
+    <platform name="android">
+        <hook src="scripts/android_after_install.js" type="after_plugin_install"/>
+        <hook src="scripts/android_before_uninstall.js" type="before_plugin_uninstall"/>
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="URLScheme"><param name="android-package" value="com.mobishift.plugins.urlscheme.URLScheme"/></feature>
+        </config-file>
+        <config-file parent="/*/application/activity" target="AndroidManifest.xml">
+            <intent-filter>
+                <data android:scheme="{{URL_SCHEME}}"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml"></config-fi le><source-file src="src/android/URLScheme.java" target-dir="src/com/mobishift/plugins/URLScheme"/>
+    </platform>
+</plugin>
