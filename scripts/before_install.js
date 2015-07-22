@@ -9,7 +9,7 @@ module.exports = function(context){
 
     var pluginDir = path.join(projectRoot, 'plugins', 'com.mobishift.plugins.URLScheme', 'plugin.xml');
     var content = fs.readFileSync(pluginDir, {encoding: 'utf8'});
-    var urlscheme = config.getPreferences('urlscheme');
+    var urlscheme = config.getPreference('urlscheme');
     if(!urlscheme){
         var packageNames = config.packageName().split('.');
         urlscheme = packageNames[packageNames.length - 1];
