@@ -12,7 +12,7 @@ module.exports = function(context){
     var targetFile = path.join(projectRoot, 'platforms', 'ios', appName, 'Classes', 'AppDelegate.m');
 
     var content = fs.readFileSync(targetFile, { encoding: 'utf8'});
-    if(content.indexOf('URLscheme.m') >= 0){
+    if(content.indexOf('#import "URLSCheme.h"') >= 0){
         content = content.replace('\n#import "URLSCheme.h"', '').replace('[URLScheme setUrlPath: [url absoluteString]];\n', '');
 
         fs.writeFileSync(targetFile, content);
