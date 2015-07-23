@@ -12,8 +12,8 @@ module.exports = function(context){
     var targetFile = path.join(projectRoot, 'platforms', 'android', 'src', packageNames.replace(/\./g, path.sep), 'MainActivity.java');
 
     var content = fs.readFileSync(targetFile, {encoding: 'utf8'});
-    if(content.indexOf('import com.mobishift.plugins.urlscheme') >= 0){
-        content = content.replace('import com.mobishift.plugins.urlscheme', '').replace('if(intent.getData() != null){URLScheme.urlPath = intent.getData().toString();}', '').replace('if(getIntent().getData() != null) { URLScheme.urlPath = getIntent().getData().toString();}\n', '');
+    if(content.indexOf('\nimport com.mobishift.plugins.urlscheme.URLScheme') >= 0){
+        content = content.replace('\nimport com.mobishift.plugins.urlscheme.URLScheme;', '').replace('if(intent.getData() != null){URLScheme.urlPath = intent.getData().toString();}', '').replace('if(getIntent().getData() != null) { URLScheme.urlPath = getIntent().getData().toString();}\n', '');
 
         fs.writeFileSync(targetFile, content);
     }
