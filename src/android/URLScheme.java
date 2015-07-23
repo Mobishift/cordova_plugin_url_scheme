@@ -31,7 +31,6 @@ public class URLScheme extends CordovaPlugin {
     public void getURL(CallbackContext context){
         JSONObject jsonObject = null;
         if(urlPath != null){
-            Toast.makeText(this.cordova.getActivity(), "getUrl", Toast.LENGTH_SHORT).show();
             jsonObject = new JSONObject();
             try{
                 jsonObject.put("urlPath", urlPath);
