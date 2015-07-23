@@ -9,13 +9,15 @@ module.exports = function(context){
 
     var pluginDir = path.join(projectRoot, 'plugins', 'com.mobishift.plugins.URLScheme', 'plugin.xml');
     var content = fs.readFileSync(pluginDir, {encoding: 'utf8'});
-    var urlscheme = config.getPreference('urlscheme');
-    if(!urlscheme){
-        var packageNames = config.packageName().split('.');
-        urlscheme = packageNames[packageNames.length - 1];
-    }
+    if(content.indexOf('{{URL_SCHEME}}') >= 0){
+        var urlscheme = config.getPreference('urlscheme');
+        if(!urlscheme){
+            var packageNames = config.packageName().split('.');
+            urlscheme = packageNames[packageNames.length - 1];
+        }
 
-    console.log('set url scheme to ' + urlscheme);
-    content = content.replace(/{{URL_SCHEME}}/g, urlscheme);
-    fs.writeFileSync(pluginDir, content);
+        console.log('set url scheme to ' + urlscheme);
+        content = content.replace(/{{URL_SCHEME}}/g, urlscheme);
+        fs.writeFileSync(pluginDir, content);
+    }
 };
