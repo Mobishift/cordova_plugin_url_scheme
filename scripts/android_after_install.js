@@ -17,7 +17,7 @@ module.exports = function(context){
 
         content = content.replace('loadUrl(launchUrl);', 'if(getIntent().getData() != null) { URLScheme.urlPath = getIntent().getData().toString();}\nloadUrl(launchUrl);');
         if(content.indexOf('onNewIntent') === -1){
-            content = content.replace('@Override', '@Override\npublic void onNewIntent(){ super.onNewIntent(intent); if(intent.getData() != null){URLScheme.urlPath = intent.getData().toString();} }\n@Override');
+            content = content.replace('@Override', '@Override\npublic void onNewIntent(Intent intent){ super.onNewIntent(intent); if(intent.getData() != null){URLScheme.urlPath = intent.getData().toString();} }\n@Override');
         }else{
             content = content.replace('super.onNewIntent(intent);', 'super.onNewIntent(intent); if(intent.getData() != null){URLScheme.urlPath = intent.getData().toString();}');
         }
