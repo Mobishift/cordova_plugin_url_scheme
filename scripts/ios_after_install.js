@@ -16,7 +16,7 @@ module.exports = function(context){
         var index = content.indexOf('// all plugins will get the notification, and their handlers will be called');
         subString = content.substring(index);
         content = content.substring(0, index);
-        content += "[URLScheme setUrlPath: [url path]];\n[URLScheme setUrlQuery: [url query]];\n";
+        content += "[URLScheme setUrlPath: [url absoluteString]];\n";
         content += subString;
         fs.writeFileSync(targetFile, content);
     }

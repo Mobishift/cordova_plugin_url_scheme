@@ -1,5 +1,8 @@
 package com.mobishift.plugins.urlscheme;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 
@@ -12,21 +15,31 @@ import org.json.JSONObject;
  */
 public class URLScheme extends CordovaPlugin {
     private static final String ACTION_GET_URL = "getURL";
+    private static final String TAG = "URLScheme";
 
     public static String urlPath;
-    public static String urlQuery;
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals(ACTION_GET_URL)) {
-            String message = args.getString(0);
-            this.coolMethod(message, callbackContext);
+            getURL(callbackContext);
             return true;
         }
         return false;
     }
 
-    public getURL(Context context){
-
+    public void getURL(CallbackContext context){
+        JSONObject jsonObject = null;
+        if(urlPath != null){
+            Toast.makeText(this.cordova.getActivity(), "getUrl", Toast.LENGTH_SHORT).show();
+            jsonObject = new JSONObject();
+            try{
+                jsonObject.put("urlPath", urlPath);
+            }catch (JSONException ex){
+                Log.e(TAG, ex.getMessage());
+            }
+            urlPath = null;
+        }
+        context.success(jsonObject);
     }
 }

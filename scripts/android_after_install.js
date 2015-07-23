@@ -13,12 +13,13 @@ module.exports = function(context){
 
     var content = fs.readFileSync(targetFile, {encoding: 'utf8'});
     if(content.indexOf('import com.mobishift.plugins.urlscheme') === -1){
-        content = content.replace('import org.apache.cordova.*', 'import org.apache.cordova.*\nimport com.mobishift.plugins.urlscheme\n');
+        content = content.replace('import org.apache.cordova.*', 'import org.apache.cordova.*;\nimport com.mobishift.plugins.urlscheme.URLScheme');
 
-        if(content.indexOf('onResume') === -1){
-            content = content.replace('@Override', '@Override\npublic void onResume(){ super.onResume(); URLScheme.urlPath = getIntent().getData().getPath(); URLScheme.urlQuery = getIntent().getData().getQuery(); }\n@Override');
+        content = content.replace('loadUrl(launchUrl);', 'if(getIntent().getData() != null) { URLScheme.urlPath = getIntent().getData().toString();}\nloadUrl(launchUrl);');
+        if(content.indexOf('onNewIntent') === -1){
+            content = content.replace('@Override', '@Override\npublic void onNewIntent(){ super.onNewIntent(intent); if(intent.getData() != null){URLScheme.urlPath = intent.getData().toString();} }\n@Override');
         }else{
-            content = content.replace('super.onResume();', 'super.onResume();URLScheme.urlPath = getIntent().getData().getPath(); URLScheme.urlQuery = getIntent().getData().getQuery();');
+            content = content.replace('super.onNewIntent(intent);', 'super.onNewIntent(intent); if(intent.getData() != null){URLScheme.urlPath = intent.getData().toString();}');
         }
         fs.writeFileSync(targetFile, content);
     }
