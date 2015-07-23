@@ -2,7 +2,7 @@
 <plugin id="com.mobishift.plugins.URLScheme" version="0.1.0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns="http://apache.org/cordova/ns/plugins/1.0">
     <name>URLScheme</name>
     <js-module name="URLScheme" src="www/URLScheme.js"><clobbers target="cordova.plugins.URLScheme"/></js-module>
-    <hook src="scripts/before_install.js" type="before_plugin_install"/>
+    <hook src="scripts/after_add.js" type="after_plugin_add"/>
     <platform name="ios">
         <hook src="scripts/ios_after_install.js" type="after_plugin_install"/>
         <hook src="scripts/ios_before_uninstall.js" type="before_plugin_uninstall"/>
