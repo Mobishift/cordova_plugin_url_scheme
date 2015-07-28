@@ -12,16 +12,6 @@ URLScheme.prototype.getURL = function(successCallback, errorCallback){
 
 var urlScheme = new URLScheme();
 
-channel.onResume.subscribe(function(){
-    urlScheme.getURL(function(urlData){
-        if(urlData){
-            cordova.fireDocumentEvent('appOpenWithURL', urlData);
-        }
-    }, function(error){
-        console.log('get url data error');
-    });
-});
-
 channel.onCordovaReady.subscribe(function(){
     urlScheme.getURL(function(urlData){
         if(urlData){

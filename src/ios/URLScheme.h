@@ -5,7 +5,7 @@
 }
 
 + (void) setUrlPath:(NSString*)value;
-+ (NSString*) getUrlPath;
++ (void) sendUrl;
 
 - (void)getURL:(CDVInvokedUrlCommand*)command;
 

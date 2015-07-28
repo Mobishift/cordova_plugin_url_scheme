@@ -13,7 +13,7 @@ module.exports = function(context){
 
     var content = fs.readFileSync(targetFile, {encoding: 'utf8'});
     if(content.indexOf('\nimport com.mobishift.plugins.urlscheme.URLScheme') >= 0){
-        content = content.replace('\nimport com.mobishift.plugins.urlscheme.URLScheme;', '').replace('if(intent.getData() != null){URLScheme.urlPath = intent.getData().toString();}', '').replace('if(getIntent().getData() != null) { URLScheme.urlPath = getIntent().getData().toString();}\n', '');
+        content = content.replace('\nimport com.mobishift.plugins.urlscheme.URLScheme;', '').replace('if(intent.getData() != null){URLScheme.setUrl(intent.getData().toString());}\n', '').replace('if(getIntent().getData() != null) { URLScheme.setUrl( getIntent().getData().toString();}\n', '');
 
         fs.writeFileSync(targetFile, content);
     }

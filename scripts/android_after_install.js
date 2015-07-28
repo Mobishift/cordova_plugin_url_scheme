@@ -15,11 +15,11 @@ module.exports = function(context){
     if(content.indexOf('import com.mobishift.plugins.urlscheme.URLScheme') === -1){
         content = content.replace('import org.apache.cordova.*', 'import org.apache.cordova.*;\nimport com.mobishift.plugins.urlscheme.URLScheme');
 
-        content = content.replace('loadUrl(launchUrl);', 'if(getIntent().getData() != null) { URLScheme.urlPath = getIntent().getData().toString();}\nloadUrl(launchUrl);');
+        content = content.replace('loadUrl(launchUrl);', 'if(getIntent().getData() != null) { URLScheme.setUrl( getIntent().getData().toString();}\nloadUrl(launchUrl));');
         if(content.indexOf('onNewIntent') === -1){
-            content = content.replace('@Override', '@Override\npublic void onNewIntent(android.content.Intent intent){ super.onNewIntent(intent); if(intent.getData() != null){URLScheme.urlPath = intent.getData().toString();} }\n@Override');
+            content = content.replace('@Override', '@Override\npublic void onNewIntent(android.content.Intent intent){ super.onNewIntent(intent);\nif(intent.getData() != null){URLScheme.setUrl(intent.getData().toString());}\n}\n@Override');
         }else{
-            content = content.replace('super.onNewIntent(intent);', 'super.onNewIntent(intent); if(intent.getData() != null){URLScheme.urlPath = intent.getData().toString();}');
+            content = content.replace('super.onNewIntent(intent);', 'super.onNewIntent(intent);\nif(intent.getData() != null){URLScheme.setUrl(intent.getData().toString());}\n');
         }
         fs.writeFileSync(targetFile, content);
     }
